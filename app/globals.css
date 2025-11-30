@@ -1,26 +1,187 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base styles optimized for dark mode dashboard */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Dark background for the data scientist app */
+  background: #0f0f23 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Custom scrollbar for dark mode */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e2e;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3f3f5f;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #585876;
+}
+
+/* Smooth transitions */
+button, input, .card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Glass effect utility for dark mode */
+.glass {
+  background: rgba(30, 30, 46, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Modern shadow utilities for dark mode */
+.shadow-modern {
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4), 0 2px 8px -1px rgba(0, 0, 0, 0.3);
+}
+
+.shadow-modern-hover {
+  box-shadow: 0 8px 32px -2px rgba(0, 0, 0, 0.5), 0 4px 16px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Purple glow effects for dark mode */
+.shadow-purple-glow {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.shadow-purple-glow-hover {
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+}
+
+/* Slow pulse animation */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite ease-in-out;
+}
+
+/* Focus states for accessibility with purple */
+button:focus-visible, 
+input:focus-visible, 
+select:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Card styles for dark theme */
+.card-dark {
+  background: rgba(30, 30, 46, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* Button styles for dark theme */
+.btn-purple {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  color: white;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.btn-purple:hover {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Progress bar with purple theme */
+.progress-purple {
+  background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc);
+}
+
+/* Status indicators for dark theme */
+.status-purple {
+  background: rgba(139, 92, 246, 0.2);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.status-success {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-warning {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fdba74;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-error {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Text colors for dark mode */
+.text-dark-primary {
+  color: #f1f5f9;
+}
+
+.text-dark-secondary {
+  color: #cbd5e1;
+}
+
+.text-dark-muted {
+  color: #94a3b8;
+}
+
+/* Background colors for dark mode */
+.bg-dark-primary {
+  background: #0f0f23;
+}
+
+.bg-dark-secondary {
+  background: #1e1e2e;
+}
+
+.bg-dark-tertiary {
+  background: #2d2d3a;
+}
+
+/* Border colors for dark mode */
+.border-dark-primary {
+  border-color: #374151;
+}
+
+.border-dark-secondary {
+  border-color: #4b5563;
+}
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
+  --surface-dark: rgba(30, 30, 46, 0.8);
+  --border-dark: rgba(255, 255, 255, 0.1);
+  --shadow-dark: 0 4px 24px -1px rgba(0, 0, 0, 0.4), 0 2px 8px -1px rgba(0, 0, 0, 0.3);
 }
