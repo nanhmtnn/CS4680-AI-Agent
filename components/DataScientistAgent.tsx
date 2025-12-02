@@ -1,4 +1,4 @@
-// -------------------------------------------------------------------------------------------- 
+// // -------------------------------------------------------------------------------------------- 
 
 
 'use client';
@@ -248,27 +248,65 @@ function NumericStatsCard({ values }: { values: number[] }) {
   //   }
   // };
 
+  // original
+  // const analyzeDataset = async () => {
+  //   if (!dataset) return;
+
+  //   setLoading(true);
+
+  //   const res = await fetch("/api/analyze", {
+  //     method: "POST",
+  //     body: JSON.stringify({ datasetInfo: dataset.info }),
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+
+  //   const data = await res.json();
+
+  //   if (data.analysis) {
+  //     setAnalysis(data.analysis);
+  //   } else {
+  //     alert("Error analyzing dataset");
+  //   }
+
+  //   setLoading(false);
+  // };
+
   const analyzeDataset = async () => {
-    if (!dataset) return;
-
-    setLoading(true);
-
-    const res = await fetch("/api/analyze", {
-      method: "POST",
-      body: JSON.stringify({ datasetInfo: dataset.info }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    const data = await res.json();
-
-    if (data.analysis) {
-      setAnalysis(data.analysis);
-    } else {
-      alert("Error analyzing dataset");
+    console.log("analyzeDataset called!");
+    if (!dataset) {
+      console.log("No dataset");
+      return;
     }
 
-    setLoading(false);
+    console.log("Starting analysis...");
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        body: JSON.stringify({ datasetInfo: dataset.info }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      console.log("Response:", res.status);
+      const data = await res.json();
+      console.log("Data:", data);
+
+      if (data.analysis) {
+        console.log("Setting analysis");
+        setAnalysis(data.analysis);
+      } else {
+        console.log("No analysis field");
+        alert("Error analyzing dataset");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error analyzing dataset");
+    } finally {
+      setLoading(false);
+    }
   };
+
 
 
 

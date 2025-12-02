@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
     });
 
     const prompt = `Analyze dataset:\n${JSON.stringify(datasetInfo, null, 2)}`;
@@ -19,12 +19,18 @@ export async function POST(req: Request) {
         temperature: 0.1,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 1024,
+        maxOutputTokens: 8192,
       },
     });
 
+    console.log("Candidates:", result.response.candidates);
+
+    const candidate = result.response.candidates?.[0];
+    const analysisText = candidate?.content?.parts?.[0]?.text || "";
+    console.log("Analysis text:", analysisText.substring(0, 200));
+
     return NextResponse.json({
-      analysis: result.response.text(),
+      analysis: analysisText,
     });
 
   } catch (err) {
